@@ -34,7 +34,7 @@ def render_data_view(request, dataframe=pandas_filter_data()):
     query_dict = request.GET
     query = query_dict.get("query")
     if query:
-        dataframe = dataframe.query('Country.str.contains(@query)', engine={'python'})
+        dataframe = dataframe.query('Country.str.contains(@query)', engine='python')
     json_frame = dataframe.reset_index().to_json(
                                                  orient="records",
                                                  date_unit='s',
@@ -47,7 +47,7 @@ def export_data_to_csv(request, dataframe=pandas_filter_data()):
     query_dict = request.GET
     query = query_dict.get("query")
     if query:
-        dataframe = dataframe.query('Country.str.contains(@query)', engine={'python'})
+        dataframe = dataframe.query('Country.str.contains(@query)', engine='python')
     response = HttpResponse(
                             content_type='text/csv',
                             headers={'Content-Disposition': f'attachment; filename="covid_data_{query}.csv"'}
