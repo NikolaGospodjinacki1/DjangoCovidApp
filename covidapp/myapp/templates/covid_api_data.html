@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TableView - Startup</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+      <div class="container-fluid p-2 bg-primary text-white text-center">
+          <h1>Covid data</h1>
+      </div>   
+      <div class="form-group">
+        <form action="" method="GET" class="form">
+            <label for="query">Enter country:</label>
+            <input type="text" name="query" type="form-control">
+            <input type="submit">
+        </form>
+      </div>
+      <button type="button" class="btn btn-default">
+        <a href="{% url 'export_data_to_csv' %}?{{request.GET.urlencode}}">Export currently displayed data!</a>
+      </button>
+      <div class="container mt-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>CountryCode</th>
+                    <th>NewConfirmed</th>
+                    <th>TotalConfirmed</th>
+                    <th>NewDeaths</th>
+                    <th>TotalDeaths</th>
+                    <th>NewRecovered</th>
+                    <th>TotalRecovered</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}  
+                {% for i in data %}                    
+                  <tr>
+                    <td>{{ i.Country }}</td>
+                    <td>{{ i.CountryCode }}</td>
+                    <td>{{ i.NewConfirmed }}</td>
+                    <td>{{ i.TotalConfirmed }}</td>
+                    <td>{{ i.NewDeaths }}</td>
+                    <td>{{ i.TotalDeaths }}</td>
+                    <td>{{ i.NewRecovered }}</td>
+                    <td>{{ i.TotalRecovered }}</td>
+                    <td>{{ i.Date }}</td>
+                </tr>                    
+                {% endfor %}    
+                {% endif %}
+            </tbody>
+        </table>
+   </div>
+</body>
+</html>
