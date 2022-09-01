@@ -34,7 +34,7 @@ def render_data_view(request, dataframe=pandas_filter_data()):
     query_dict = request.GET
     query = query_dict.get("query")
     if query:
-        dataframe = dataframe.query(f"Country == @query")
+        dataframe = dataframe.query('Country.str.contains(@query)', engine={'python'})
     json_frame = dataframe.reset_index().to_json(
                                                  orient="records",
                                                  date_unit='s',
