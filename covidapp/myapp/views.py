@@ -47,7 +47,7 @@ def export_data_to_csv(request, dataframe=pandas_filter_data()):
     query_dict = request.GET
     query = query_dict.get("query")
     if query:
-        dataframe = dataframe.query(f"Country == @query")
+        dataframe = dataframe.query('Country.str.contains(@query)')
     response = HttpResponse(
                             content_type='text/csv',
                             headers={'Content-Disposition': f'attachment; filename="covid_data_{query}.csv"'}
